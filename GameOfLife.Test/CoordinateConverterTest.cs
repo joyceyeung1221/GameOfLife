@@ -9,13 +9,15 @@ namespace GameOfLife.Test
         public CoordinateConverterTest()
         {
             _comparer = new CoordinateComparer();
-            _universe = new Universe(50, 50);
+            _universe = new Universe(10, 10);
         }
         
 
         [Theory]
-        [InlineData(0,0,22,23,21,22)]
-        [InlineData(2,1,22,23,22,24)]
+        [InlineData(0,0,6,7,5,6)]
+        [InlineData(0,1,6,1,6,10)]
+        [InlineData(2,2,10,10,1,1)]
+        [InlineData(0,2,10,1,1,10)]
         public void ShouldReturnCoordinate(int row, int col, int CPX, int CPY, int X, int Y)
         {
             var coordinate = new Coordinate(CPX, CPY);
