@@ -21,7 +21,7 @@ namespace GameOfLife.Test
         public void ShouldRepresentLiveNeighborsWithAList()
         {
             var neighborhood = new LiveCellNeighbourhood(coordinate1, nh);
-            var result = neighborhood.LiveNeighbours;
+            var result = neighborhood.LiveCellNeighbours;
 
             Assert.True(result is List<Coordinate>);
         }
@@ -33,9 +33,9 @@ namespace GameOfLife.Test
             var neighborhood = new LiveCellNeighbourhood(coordinateCP, nh);
             neighborhood.FindNeighbours(coordinates);
 
-            Assert.True(_comparer.Contains(coordinate1, neighborhood.LiveNeighbours));
-            Assert.True(_comparer.Contains(coordinate2, neighborhood.LiveNeighbours));
-            Assert.False(_comparer.Contains(coordinate4, neighborhood.LiveNeighbours));
+            Assert.True(_comparer.Contains(coordinate1, neighborhood.LiveCellNeighbours));
+            Assert.True(_comparer.Contains(coordinate2, neighborhood.LiveCellNeighbours));
+            Assert.False(_comparer.Contains(coordinate4, neighborhood.LiveCellNeighbours));
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace GameOfLife.Test
             var neighborhood = new LiveCellNeighbourhood(coordinateCP, nh);
             neighborhood.FindNeighbours(coordinates);
 
-            Assert.True(neighborhood.DeadNeighbours.Count == 6);
+            Assert.True(neighborhood.DeadCellNeighbours.Count == 6);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace GameOfLife.Test
         {
             var lifeDeathValidator = new LifeDeathValidator();
             var coordinates = new List<Coordinate> { topLeftNeighbour, topNeighbour, distanceNeighbour };
-            var neighbourhood = new DeadCellNeighbourhood(centerPoint, nh);
+            var neighbourhood = new LiveCellNeighbourhood(centerPoint, nh);
             neighbourhood.FindNeighbours(coordinates);
             var result = lifeDeathValidator.IsCellAliveAfterTick(neighbourhood);
 
@@ -33,7 +33,7 @@ namespace GameOfLife.Test
         {
             var lifeDeathValidator = new LifeDeathValidator();
             var coordinates = new List<Coordinate> { topLeftNeighbour, topNeighbour, topRightNeighbour, distanceNeighbour };
-            var neighbourhood = new DeadCellNeighbourhood(centerPoint, nh);
+            var neighbourhood = new LiveCellNeighbourhood(centerPoint, nh);
             neighbourhood.FindNeighbours(coordinates);
             var result = lifeDeathValidator.IsCellAliveAfterTick(neighbourhood);
 
@@ -45,7 +45,7 @@ namespace GameOfLife.Test
         {
             var lifeDeathValidator = new LifeDeathValidator();
             var coordinates = new List<Coordinate> { topLeftNeighbour, topNeighbour, topRightNeighbour, leftNeighbour, distanceNeighbour };
-            var neighbourhood = new DeadCellNeighbourhood(centerPoint, nh);
+            var neighbourhood = new LiveCellNeighbourhood(centerPoint, nh);
             neighbourhood.FindNeighbours(coordinates);
             var result = lifeDeathValidator.IsCellAliveAfterTick(neighbourhood);
 
@@ -57,6 +57,42 @@ namespace GameOfLife.Test
         {
             var lifeDeathValidator = new LifeDeathValidator();
             var coordinates = new List<Coordinate> { topLeftNeighbour, distanceNeighbour };
+            var neighbourhood = new LiveCellNeighbourhood(centerPoint, nh);
+            neighbourhood.FindNeighbours(coordinates);
+            var result = lifeDeathValidator.IsCellAliveAfterTick(neighbourhood);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void ShouldReturnTrue_WhenDeadCellNeighbourhoodHaveThreeLiveNeighbours()
+        {
+            var lifeDeathValidator = new LifeDeathValidator();
+            var coordinates = new List<Coordinate> { topLeftNeighbour, topNeighbour, topRightNeighbour, distanceNeighbour };
+            var neighbourhood = new DeadCellNeighbourhood(centerPoint, nh);
+            neighbourhood.FindNeighbours(coordinates);
+            var result = lifeDeathValidator.IsCellAliveAfterTick(neighbourhood);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void ShouldReturnFalse_WhenDeadCellNeighbourhoodHaveLessThanThreeLiveNeighbours()
+        {
+            var lifeDeathValidator = new LifeDeathValidator();
+            var coordinates = new List<Coordinate> { topLeftNeighbour, topNeighbour, distanceNeighbour };
+            var neighbourhood = new DeadCellNeighbourhood(centerPoint, nh);
+            neighbourhood.FindNeighbours(coordinates);
+            var result = lifeDeathValidator.IsCellAliveAfterTick(neighbourhood);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void ShouldReturnF_WhenDeadCellNeighbourhoodHaveMoreThanThreeLiveNeighbours()
+        {
+            var lifeDeathValidator = new LifeDeathValidator();
+            var coordinates = new List<Coordinate> { topLeftNeighbour, topNeighbour, topRightNeighbour, leftNeighbour, distanceNeighbour };
             var neighbourhood = new DeadCellNeighbourhood(centerPoint, nh);
             neighbourhood.FindNeighbours(coordinates);
             var result = lifeDeathValidator.IsCellAliveAfterTick(neighbourhood);
