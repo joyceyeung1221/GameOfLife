@@ -41,7 +41,7 @@ namespace GameOfLife.Test
         [Fact]
         public void ShouldHaveUnmatchedcoordinatesInDeadNeighbours()
         {
-            var coordinates = DummyData.listWith2LiveNeighbours;
+            var coordinates = new List<Coordinate> { coordinate1, coordinate2, coordinate4 };
             var neighborhood = new LiveCellNeighbourhood(coordinateCP, nh);
             neighborhood.FindNeighbours(coordinates);
 

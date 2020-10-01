@@ -41,7 +41,7 @@ namespace GameOfLife.Test
         {
             var coordinates = new List<Coordinate> { coordinate1, coordinate2, coordinate4 };
             var division = nh.FormNeighbourhoodBoundaries();
-            nh.FillCoorindate(division, DummyData.CoordinateCP);
+            nh.FillCoorindate(division, coordinateCP);
             var result = nh.FindLiveCellNeighbours(division, coordinates);
 
             Assert.True(result.Count == 2);
