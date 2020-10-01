@@ -5,15 +5,15 @@ namespace GameOfLife.Test
 {
     public class NeighbourHelperTest
     {
+        private NeighbourhoodHelper nh = new NeighbourhoodHelper(new CoordinateConverter(new Universe(50, 50)));
+        private Coordinate coordinateCP = new Coordinate(2, 2);
+        private Coordinate coordinate1 = new Coordinate(1, 1);
+        private Coordinate coordinate2 = new Coordinate(1, 2);
+        private Coordinate coordinate3 = new Coordinate(1, 3);
+        private Coordinate coordinate4 = new Coordinate(4, 4);
         public NeighbourHelperTest()
         {
         }
-        Coordinate coordinateCP = new Coordinate(2, 2);
-        Coordinate coordinate1 = new Coordinate(1, 1);
-        Coordinate coordinate2 = new Coordinate(1, 2);
-        Coordinate coordinate3 = new Coordinate(1, 3);
-        Coordinate coordinate4 = new Coordinate(4, 4);
-        NeighbourhoodHelper nh = new NeighbourhoodHelper(new CoordinateConverter(new Universe(50, 50)));
 
         [Fact]
         public void ShouldCreate3By3Array()
@@ -26,9 +26,9 @@ namespace GameOfLife.Test
         [Fact]
         public void ShouldBuildAnArrayFilledNeighbourByCoordinate()
         {
-            var coordinateCP = new Coordinate(9, 7);
+            var CP = new Coordinate(9, 7);
             var division = nh.FormNeighbourhoodBoundaries();
-            nh.FillCoorindate(division, coordinateCP);
+            nh.FillCoorindate(division, CP);
 
             Assert.IsType<Coordinate[,]>(division);
             Assert.True(division[0, 0].X == 8 && division[0, 0].Y == 6);
@@ -41,8 +41,8 @@ namespace GameOfLife.Test
         {
             var coordinates = new List<Coordinate> { coordinate1, coordinate2, coordinate4 };
             var division = nh.FormNeighbourhoodBoundaries();
-            nh.FillCoorindate(division, coordinateCP);
-            var result = nh.FindLivingCellNeighbours(division, coordinates);
+            nh.FillCoorindate(division, DummyData.CoordinateCP);
+            var result = nh.FindLiveCellNeighbours(division, coordinates);
 
             Assert.True(result.Count == 2);
         }

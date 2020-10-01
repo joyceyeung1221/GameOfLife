@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GameOfLife
 {
@@ -48,7 +49,7 @@ namespace GameOfLife
             return i == 1 && j == 1;
         }
 
-        public List<Coordinate> FindLivingCellNeighbours(Coordinate[,] neighbourhood, List<Coordinate> livingCellCoordinates)
+        public List<Coordinate> FindLiveCellNeighbours(Coordinate[,] neighbourhood, List<Coordinate> livingCellCoordinates)
         {
             var matchedCoorindates = new List<Coordinate>();
             foreach (Coordinate coordinate in neighbourhood)
@@ -59,6 +60,14 @@ namespace GameOfLife
                 }
             }
             return matchedCoorindates;
+        }
+
+        public List<Coordinate> FindDeadCellNeighbours(Coordinate[,] neighbourhood, List<Coordinate> liveNeighbours)
+        {
+            List<Coordinate> coordinateLists = neighbourhood.Cast<Coordinate>().ToList();
+            var remainingCoordates = coordinateLists.Except(liveNeighbours).ToList();
+            remainingCoordates.RemoveAll(item => item == null);
+            return remainingCoordates;
         }
     }
 }
