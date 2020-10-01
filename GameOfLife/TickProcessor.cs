@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GameOfLife
 {
@@ -37,15 +38,24 @@ namespace GameOfLife
         private List<Neighbourhood> FormNeighbourhoods(List<Coordinate> currentGeneration)
         {
             var neighbourhoods = new List<Neighbourhood>();
-            foreach(Coordinate liveCell in currentGeneration)
+            var deadCellCoordinates = new List<Coordinate>();
+            foreach (Coordinate liveCell in currentGeneration)
             {
                 var liveCellNeighbourhood = new LiveCellNeighbourhood(liveCell, _neighbourhoodHelper);
                 liveCellNeighbourhood.FindNeighbours(currentGeneration);
                 neighbourhoods.Add(liveCellNeighbourhood);
-                var deadCellNeighbourhoods = FormDeadCellNeighbourhoods(liveCellNeighbourhood.DeadCellNeighbours, currentGeneration);
-                neighbourhoods.AddRange(deadCellNeighbourhoods);
+                deadCellCoordinates.AddRange(liveCellNeighbourhood.DeadCellNeighbours);
+                deadCellCoordinates = RemoveDuplicateCoordinate(deadCellCoordinates);
             }
+            var deadCellNeighbourhoods = FormDeadCellNeighbourhoods(deadCellCoordinates, currentGeneration);
+            neighbourhoods.AddRange(deadCellNeighbourhoods);
             return neighbourhoods;
+        }
+
+        private List<Coordinate> RemoveDuplicateCoordinate(List<Coordinate> coordinates)
+        {
+            var filterList = coordinates.GroupBy(n => new { n.X, n.Y }).Select(g => g.First()).ToList();
+            return filterList;
         }
 
         private List<Neighbourhood> FormDeadCellNeighbourhoods(List<Coordinate> deadCellNeighbours, List<Coordinate> currentGeneration)

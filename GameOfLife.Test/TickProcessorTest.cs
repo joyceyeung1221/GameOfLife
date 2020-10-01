@@ -24,7 +24,7 @@ namespace GameOfLife.Test
             var result = tickProcessor.CreateNextGenerationCoordinates(coordinates);
 
             Assert.IsType<List<Coordinate>>(result);
-            Assert.Single(result);
+            Assert.Equal(3,result.Count);
         }
     }
 }
