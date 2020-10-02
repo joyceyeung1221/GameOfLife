@@ -7,7 +7,6 @@ namespace GameOfLife
     {
         static void Main(string[] args)
         {
-
         }
     }
 }
