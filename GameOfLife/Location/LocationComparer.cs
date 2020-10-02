@@ -3,28 +3,28 @@ using System.Collections.Generic;
 
 namespace GameOfLife
 {
-    public class CoordinateComparer : IEqualityComparer<Coordinate>
+    public class LocationComparer : IEqualityComparer<Location>
     {
-        public bool Equals(Coordinate a, Coordinate b)
+        public bool Equals(Location a, Location b)
         {
             if (a == null || b == null)
                 return false;
 
-            return (a.X == b.X && a.Y == b.Y);
+            return (a.Column == b.Column && a.Row == b.Row);
         }
 
-        public int GetHashCode(Coordinate obj)
+        public int GetHashCode(Location obj)
         {
             return obj.GetHashCode();
         }
 
-        public bool Contains(Coordinate obj, List<Coordinate> list)
+        public bool Contains(Location obj, List<Location> list)
         {
             if(list.Count == 0)
             {
                 return false;
             }
-            foreach(Coordinate coordinate in list)
+            foreach(Location coordinate in list)
             {
                 if (Equals(obj, coordinate))
                 {

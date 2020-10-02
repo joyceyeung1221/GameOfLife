@@ -5,12 +5,12 @@ namespace GameOfLife.Test
 {
     public class NeighbourHelperTest
     {
-        private NeighbourhoodHelper nh = new NeighbourhoodHelper(new CoordinateConverter(new Universe(50, 50)));
-        private Coordinate coordinateCP = new Coordinate(2, 2);
-        private Coordinate coordinate1 = new Coordinate(1, 1);
-        private Coordinate coordinate2 = new Coordinate(1, 2);
-        private Coordinate coordinate3 = new Coordinate(1, 3);
-        private Coordinate coordinate4 = new Coordinate(4, 4);
+        private NeighbourhoodHelper nh = new NeighbourhoodHelper(new LocationConverter(new Universe(50, 50)));
+        private Location locationCP = new Location(2, 2);
+        private Location location1 = new Location(1, 1);
+        private Location location2 = new Location(1, 2);
+        private Location location3 = new Location(1, 3);
+        private Location location4 = new Location(4, 4);
         public NeighbourHelperTest()
         {
         }
@@ -24,25 +24,25 @@ namespace GameOfLife.Test
         }
 
         [Fact]
-        public void ShouldBuildAnArrayFilledNeighbourByCoordinate()
+        public void ShouldBuildAnArrayFilledNeighbourByLocation()
         {
-            var CP = new Coordinate(9, 7);
+            var CP = new Location(7, 9);
             var division = nh.FormNeighbourhoodBoundaries();
-            nh.FillCoorindate(division, CP);
+            nh.FindLocation(division, CP);
 
-            Assert.IsType<Coordinate[,]>(division);
-            Assert.True(division[0, 0].X == 8 && division[0, 0].Y == 6);
-            Assert.True(division[1, 2].X == 10 && division[1, 2].Y == 7);
+            Assert.IsType<Location[,]>(division);
+            Assert.True(division[0, 0].Column == 8 && division[0, 0].Row == 6);
+            Assert.True(division[1, 2].Column == 10 && division[1, 2].Row == 7);
             Assert.True(division[1, 1] == null);
         }
 
         [Fact]
         public void ShouldReturnMatchedCoorindate()
         {
-            var coordinates = new List<Coordinate> { coordinate1, coordinate2, coordinate4 };
+            var locations = new List<Location> { location1, location2, location4 };
             var division = nh.FormNeighbourhoodBoundaries();
-            nh.FillCoorindate(division, coordinateCP);
-            var result = nh.FindLiveCellNeighbours(division, coordinates);
+            nh.FindLocation(division, locationCP);
+            var result = nh.FindLiveCellNeighbours(division, locations);
 
             Assert.True(result.Count == 2);
         }

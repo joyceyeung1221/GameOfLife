@@ -6,13 +6,13 @@ namespace GameOfLife.Test
 {
     public class DeadCellNeightbourhoodTest
     {
-        private NeighbourhoodHelper nh = new NeighbourhoodHelper(new CoordinateConverter(new Universe(5, 5)));
-        private Coordinate centerPoint = new Coordinate(2, 2);
-        private Coordinate topLeftNeighbour = new Coordinate(1, 1);
-        private Coordinate topNeighbour = new Coordinate(1, 2);
-        private Coordinate topRightNeighbour = new Coordinate(1, 3);
-        private Coordinate distanceNeighbour = new Coordinate(4, 4);
-        private CoordinateComparer _comparer = new CoordinateComparer();
+        private NeighbourhoodHelper nh = new NeighbourhoodHelper(new LocationConverter(new Universe(5, 5)));
+        private Location centerPoint = new Location(2, 2);
+        private Location topLeftCoordinate = new Location(1, 1);
+        private Location topCoordinate = new Location(1, 2);
+        private Location topRightCoordinate = new Location(1, 3);
+        private Location distanceCoordinate = new Location(4, 4);
+        private LocationComparer _comparer = new LocationComparer();
         public DeadCellNeightbourhoodTest()
         {
         }
@@ -20,22 +20,22 @@ namespace GameOfLife.Test
         [Fact]
         public void ShouldRepresentLiveNeighborsWithAList()
         {
-            var neighborhood = new DeadCellNeighbourhood(topLeftNeighbour, nh);
+            var neighborhood = new DeadCellNeighbourhood(topLeftCoordinate, nh);
             var result = neighborhood.LiveCellNeighbours;
 
-            Assert.True(result is List<Coordinate>);
+            Assert.True(result is List<Location>);
         }
 
         [Fact]
         public void ShouldContainAdjacentLiveCoordinatesInLiveNeighbours()
         {
-            var coordinates = new List<Coordinate> { topLeftNeighbour, topNeighbour, distanceNeighbour };
+            var coordinates = new List<Location> { topLeftCoordinate, topCoordinate, distanceCoordinate };
             var neighborhood = new DeadCellNeighbourhood(centerPoint, nh);
             neighborhood.FindNeighbours(coordinates);
 
-            Assert.True(_comparer.Contains(topLeftNeighbour, neighborhood.LiveCellNeighbours));
-            Assert.True(_comparer.Contains(topNeighbour, neighborhood.LiveCellNeighbours));
-            Assert.False(_comparer.Contains(distanceNeighbour, neighborhood.LiveCellNeighbours));
+            Assert.True(_comparer.Contains(topLeftCoordinate, neighborhood.LiveCellNeighbours));
+            Assert.True(_comparer.Contains(topCoordinate, neighborhood.LiveCellNeighbours));
+            Assert.False(_comparer.Contains(distanceCoordinate, neighborhood.LiveCellNeighbours));
         }
 
     }

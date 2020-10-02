@@ -4,8 +4,8 @@ namespace GameOfLife
 {
     public interface Neighbourhood
     {
-        public Coordinate CenterPoint { get; }
-        public List<Coordinate> LiveCellNeighbours { get; }
-        public void FindNeighbours(List<Coordinate> liveCellCoordinates);
+        public Location CenterPoint { get; }
+        public List<Location> LiveCellNeighbours { get; }
+        public void FindNeighbours(List<Location> liveCellCoordinates);
     }
 }

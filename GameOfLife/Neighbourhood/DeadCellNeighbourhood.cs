@@ -5,21 +5,21 @@ namespace GameOfLife
 {
     public class DeadCellNeighbourhood : Neighbourhood
     {
-        public Coordinate CenterPoint { get; private set; }
-        public List<Coordinate> LiveCellNeighbours { get; private set; }
+        public Location CenterPoint { get; private set; }
+        public List<Location> LiveCellNeighbours { get; private set; }
         private NeighbourhoodHelper _helper;
 
-        public DeadCellNeighbourhood(Coordinate coordinate, NeighbourhoodHelper neighbourhoodHelper)
+        public DeadCellNeighbourhood(Location location, NeighbourhoodHelper neighbourhoodHelper)
         {
-            CenterPoint = coordinate;
-            LiveCellNeighbours = new List<Coordinate>();
+            CenterPoint = location;
+            LiveCellNeighbours = new List<Location>();
             _helper = neighbourhoodHelper;
         }
 
-        public void FindNeighbours(List<Coordinate> liveCellCoordinates)
+        public void FindNeighbours(List<Location> liveCellCoordinates)
         {
             var division = _helper.FormNeighbourhoodBoundaries();
-            var mappedNeighbourHood = _helper.FillCoorindate(division, CenterPoint);
+            var mappedNeighbourHood = _helper.FindLocation(division, CenterPoint);
             LiveCellNeighbours = _helper.FindLiveCellNeighbours(mappedNeighbourHood, liveCellCoordinates);
         }
     }

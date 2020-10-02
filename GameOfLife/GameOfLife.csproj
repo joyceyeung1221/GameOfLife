@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <Folder Include="Interface\" />
-    <Folder Include="Coordinate\" />
+    <Folder Include="Location\" />
     <Folder Include="Neighbourhood\" />
   </ItemGroup>
 </Project>
