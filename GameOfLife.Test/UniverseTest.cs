@@ -12,11 +12,11 @@ namespace GameOfLife.Test
         [InlineData(1,2,5,5,false)]
         [InlineData(0,2,5,5,true)]
         [InlineData(1,6,5,5,true)]
-        public void ShouldReturnTrue_WhenCooridateIsOnTheEdge(int x, int y, int row, int col, bool expected)
+        public void ShouldReturnTrue_WhenLocationIsOnTheEdge(int colValue, int rowValue, int rowNum, int colNum, bool expected)
         {
-            var universe = new Universe(row, col);
+            var universe = new Universe(rowNum, colNum);
 
-            Assert.Equal(expected, (universe.IsXOverUnveriseEdge(x) || universe.IsYOverUniverseEdge(y)));
+            Assert.Equal(expected, (universe.IsColumnOverUnveriseEdge(colValue) || universe.IsRowOverUniverseEdge(rowValue)));
         }
     }
 }

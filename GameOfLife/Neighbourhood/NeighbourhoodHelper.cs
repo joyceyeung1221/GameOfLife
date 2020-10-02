@@ -6,24 +6,24 @@ namespace GameOfLife
 {
     public class NeighbourhoodHelper
     {
-        private CoordinateConverter _coordinateConverter;
-        private CoordinateComparer _comparer;
+        private LocationConverter _locationConverter;
+        private LocationComparer _comparer;
 
-        public NeighbourhoodHelper(CoordinateConverter coordinateConverter)
+        public NeighbourhoodHelper(LocationConverter locationConverter)
         {
-            _coordinateConverter = coordinateConverter;
-            _comparer = new CoordinateComparer();
+            _locationConverter = locationConverter;
+            _comparer = new LocationComparer();
         }
 
-        public Coordinate[,] FormNeighbourhoodBoundaries()
+        public Location[,] FormNeighbourhoodBoundaries()
         {
             var row = 3;
             var column = 3;
-            var division = new Coordinate[row, column];
+            var division = new Location[row, column];
             return division;
         }
 
-        public Coordinate[,] FillCoorindate(Coordinate[,] division, Coordinate centerPoint)
+        public Location[,] FindLocation(Location[,] division, Location centerPoint)
         {
             for (int i = 0; i < division.GetLength(0); i++)
             {
@@ -33,13 +33,13 @@ namespace GameOfLife
 
         }
 
-        private void FillRow(Coordinate[,] division, int i, Coordinate centerPoint)
+        private void FillRow(Location[,] division, int i, Location centerPoint)
         {
             for (int j = 0; j < division.GetLength(1); j++)
             {
                 if (!IsCenterPoint(i, j))
                 {
-                    division[i, j] = _coordinateConverter.CreateCoordinateByIndex(i, j, centerPoint);
+                    division[i, j] = _locationConverter.CreateLocationByIndex(i, j, centerPoint);
                 }
             }
         }
@@ -49,10 +49,10 @@ namespace GameOfLife
             return i == 1 && j == 1;
         }
 
-        public List<Coordinate> FindLiveCellNeighbours(Coordinate[,] neighbourhood, List<Coordinate> livingCellCoordinates)
+        public List<Location> FindLiveCellNeighbours(Location[,] neighbourhood, List<Location> livingCellCoordinates)
         {
-            var matchedCoorindates = new List<Coordinate>();
-            foreach (Coordinate coordinate in neighbourhood)
+            var matchedCoorindates = new List<Location>();
+            foreach (Location coordinate in neighbourhood)
             {
                 if (_comparer.Contains(coordinate, livingCellCoordinates))
                 {
@@ -62,9 +62,9 @@ namespace GameOfLife
             return matchedCoorindates;
         }
 
-        public List<Coordinate> FindDeadCellNeighbours(Coordinate[,] neighbourhood, List<Coordinate> liveNeighbours)
+        public List<Location> FindDeadCellNeighbours(Location[,] neighbourhood, List<Location> liveNeighbours)
         {
-            List<Coordinate> coordinateLists = neighbourhood.Cast<Coordinate>().ToList();
+            List<Location> coordinateLists = neighbourhood.Cast<Location>().ToList();
             var remainingCoordates = coordinateLists.Except(liveNeighbours).ToList();
             remainingCoordates.RemoveAll(item => item == null);
             return remainingCoordates;

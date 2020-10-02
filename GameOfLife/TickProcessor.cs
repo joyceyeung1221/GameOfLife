@@ -9,16 +9,16 @@ namespace GameOfLife
         private LifeDeathValidator _lifeDeathValidator;
         private NeighbourhoodHelper _neighbourhoodHelper;
 
-        public TickProcessor(CoordinateConverter coordinateConverter)
+        public TickProcessor(LocationConverter coordinateConverter)
         {
             _lifeDeathValidator = new LifeDeathValidator();
             _neighbourhoodHelper = new NeighbourhoodHelper(coordinateConverter);
         }
 
-        public List<Coordinate> CreateNextGenerationCoordinates(List<Coordinate> currentGeneration)
+        public List<Location> CreateNextGenerationLocations(List<Location> currentGeneration)
         {
             var neighbourhoods = FormNeighbourhoods(currentGeneration);
-            var nextGeneration = new List<Coordinate>();
+            var nextGeneration = new List<Location>();
             foreach (Neighbourhood neighbourhood in neighbourhoods)
             {
                 nextGeneration = CanAddCell(neighbourhood, nextGeneration);
@@ -26,7 +26,7 @@ namespace GameOfLife
             return nextGeneration;
         }
 
-        private List<Coordinate> CanAddCell(Neighbourhood neighbourhood, List<Coordinate> nextGeneration)
+        private List<Location> CanAddCell(Neighbourhood neighbourhood, List<Location> nextGeneration)
         {
             if (_lifeDeathValidator.IsCellAliveAfterTick(neighbourhood))
             {
@@ -35,33 +35,33 @@ namespace GameOfLife
             return nextGeneration;
         }
 
-        private List<Neighbourhood> FormNeighbourhoods(List<Coordinate> currentGeneration)
+        private List<Neighbourhood> FormNeighbourhoods(List<Location> currentGeneration)
         {
             var neighbourhoods = new List<Neighbourhood>();
-            var deadCellCoordinates = new List<Coordinate>();
-            foreach (Coordinate liveCell in currentGeneration)
+            var deadCellLocations = new List<Location>();
+            foreach (Location liveCell in currentGeneration)
             {
                 var liveCellNeighbourhood = new LiveCellNeighbourhood(liveCell, _neighbourhoodHelper);
                 liveCellNeighbourhood.FindNeighbours(currentGeneration);
                 neighbourhoods.Add(liveCellNeighbourhood);
-                deadCellCoordinates.AddRange(liveCellNeighbourhood.DeadCellNeighbours);
-                deadCellCoordinates = RemoveDuplicateCoordinate(deadCellCoordinates);
+                deadCellLocations.AddRange(liveCellNeighbourhood.DeadCellNeighbours);
             }
-            var deadCellNeighbourhoods = FormDeadCellNeighbourhoods(deadCellCoordinates, currentGeneration);
+            deadCellLocations = RemoveDuplicateCoordinate(deadCellLocations);
+            var deadCellNeighbourhoods = FormDeadCellNeighbourhoods(deadCellLocations, currentGeneration);
             neighbourhoods.AddRange(deadCellNeighbourhoods);
             return neighbourhoods;
         }
 
-        private List<Coordinate> RemoveDuplicateCoordinate(List<Coordinate> coordinates)
+        private List<Location> RemoveDuplicateCoordinate(List<Location> locations)
         {
-            var filterList = coordinates.GroupBy(n => new { n.X, n.Y }).Select(g => g.First()).ToList();
+            var filterList = locations.GroupBy(n => new { n.Column, n.Row }).Select(g => g.First()).ToList();
             return filterList;
         }
 
-        private List<Neighbourhood> FormDeadCellNeighbourhoods(List<Coordinate> deadCellNeighbours, List<Coordinate> currentGeneration)
+        private List<Neighbourhood> FormDeadCellNeighbourhoods(List<Location> deadCellNeighbours, List<Location> currentGeneration)
         {
             var deadCellNeighbourhoods = new List<Neighbourhood>();
-            foreach(Coordinate deadCell in deadCellNeighbours)
+            foreach(Location deadCell in deadCellNeighbours)
             {
                 var deadCellNeighbourhood = new DeadCellNeighbourhood(deadCell, _neighbourhoodHelper);
                 deadCellNeighbourhood.FindNeighbours(currentGeneration);

@@ -5,25 +5,25 @@ namespace GameOfLife.Test
 {
     public class TickProcessorTest
     {
-        private Coordinate coordinateCP = new Coordinate(2, 2);
-        private Coordinate coordinate1 = new Coordinate(1, 1);
-        private Coordinate coordinate2 = new Coordinate(1, 2);
-        private Coordinate coordinate3 = new Coordinate(1, 3);
-        private Coordinate coordinate4 = new Coordinate(4, 4);
-        private CoordinateComparer _comparer = new CoordinateComparer();
+        private Location centerPoint = new Location(2, 2);
+        private Location topLeftLocation = new Location(1, 1);
+        private Location topLocation = new Location(1, 2);
+        private Location topRightLocation = new Location(1, 3);
+        private Location distanceLocation = new Location(4, 4);
+        private LocationComparer _comparer = new LocationComparer();
         public TickProcessorTest()
         {
         }
 
         [Fact]
-        public void ShouldReturnANewListOfCoordinates()
+        public void ShouldReturnANewListOfLocations()
         {
-            var coordinateConverter = new CoordinateConverter(new Universe(5, 5));
-            var tickProcessor = new TickProcessor(coordinateConverter);
-            var coordinates = new List<Coordinate> { coordinate1, coordinate2, coordinate3 };
-            var result = tickProcessor.CreateNextGenerationCoordinates(coordinates);
+            var locationConverter = new LocationConverter(new Universe(5, 5));
+            var tickProcessor = new TickProcessor(locationConverter);
+            var locations = new List<Location> { topLeftLocation, topLocation, topRightLocation };
+            var result = tickProcessor.CreateNextGenerationLocations(locations);
 
-            Assert.IsType<List<Coordinate>>(result);
+            Assert.IsType<List<Location>>(result);
             Assert.Equal(3,result.Count);
         }
     }

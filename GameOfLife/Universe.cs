@@ -3,39 +3,39 @@ namespace GameOfLife
 {
     public class Universe
     {
-        private int _row;
-        private int _col;
+        public int Row { get; private set; }
+        public int Col { get; private set; }
 
         public Universe(int row, int col)
         {
-            _row = row;
-            _col = col;
+            Row = row;
+            Col = col;
         }
 
-        public bool IsXOverUnveriseEdge(int num)
+        public bool IsColumnOverUnveriseEdge(int num)
         {
-            return num == 0 || num > _col;
+            return num == 0 || num > Col;
         }
 
-        public bool IsYOverUniverseEdge(int num)
+        public bool IsRowOverUniverseEdge(int num)
         {
-            return num == 0 || num > _row;
+            return num == 0 || num > Row;
         }
 
-        public int GetXValueOfOtherEdge(int num)
+        public int GetColumnValueOfOtherEdge(int num)
         {
             if(num == 0)
             {
-                return _col;
+                return Col;
             }
             return 1;
         }
 
-        public int GetYValueOfOtherEdge(int num)
+        public int GetRowValueOfOtherEdge(int num)
         {
             if (num == 0)
             {
-                return _row;
+                return Row;
             }
             return 1;
         }
