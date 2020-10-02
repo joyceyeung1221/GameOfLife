@@ -14,7 +14,7 @@ namespace GameOfLife
             var leftCoordinate = new Location(2, 1);
             var distanceCoordinate = new Location(4, 4);
             var universe = new Universe(3, 3);
-            var io = new ConsoleProcessor();
+            var io = new ConsoleInterface();
             var universePresenter = new UniversePresenter(io, universe);
 
             var liveCellCoordinates = new List<Location> { topCoordinate, topLeftCoordinate, topRightCoordinate };

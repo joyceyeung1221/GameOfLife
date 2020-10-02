@@ -1,9 +1,9 @@
 ﻿using System;
 namespace GameOfLife
 {
-    public class ConsoleProcessor : InputOutput
+    public class ConsoleInterface : InputOutput
     {
-        public ConsoleProcessor()
+        public ConsoleInterface()
         {
 
         }
