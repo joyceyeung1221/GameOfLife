@@ -15,12 +15,12 @@ namespace GameOfLife.Test
         private Location distanceLocation = new Location(4, 4);
         private Mock<InputOutput> _mockio;
         private Universe _universe;
-        private UniversePresenter _universePresenter;
+        private ConsolePresenter _universePresenter;
         public UniversePresenterTest()
         {
             _universe = new Universe(5, 5);
             _mockio = new Mock<InputOutput>();
-            _universePresenter = new UniversePresenter(_mockio.Object, _universe);
+            _universePresenter = new ConsolePresenter(_mockio.Object, _universe);
         }
 
         [Fact]

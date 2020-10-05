@@ -1,9 +1,9 @@
 ﻿using System;
 namespace GameOfLife
 {
-    public class ConsoleInterface : InputOutput
+    public class ConsoleAppInterface : InputOutput
     {
-        public ConsoleInterface()
+        public ConsoleAppInterface()
         {
 
         }
