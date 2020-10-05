@@ -1,22 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace GameOfLife
 {
-    public class UniversePresenter
+    public class ConsolePresenter
     {
         private InputOutput _io;
         private char _cell;
-        public UniversePresenter(InputOutput io, Universe universe)
+        public ConsolePresenter(InputOutput io)
         {
             _io = io;
             _cell = 'o';
         }
 
+        public void EndGame()
+        {
+            _io.Output("***Game Over***");
+        }
+
         public void PrintUniverse(Universe universe, List<Location> liveCellLocations)
         {
+            Console.Clear();
             CanAnnounceNoLiveCell(liveCellLocations);
             CanPrsenceUniverse(universe, liveCellLocations);
+            Thread.Sleep(1000);
         }
 
         private void CanPrsenceUniverse(Universe universe, List<Location> liveCellLocations)
