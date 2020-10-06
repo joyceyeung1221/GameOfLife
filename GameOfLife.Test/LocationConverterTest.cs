@@ -4,11 +4,9 @@ namespace GameOfLife.Test
 {
     public class LocationConverterTest
     {
-        private LocationComparer _comparer;
         private Universe _universe;
         public LocationConverterTest()
         {
-            _comparer = new LocationComparer();
             _universe = new Universe(10, 10);
         }
         
@@ -24,7 +22,7 @@ namespace GameOfLife.Test
             var locationConverter = new LocationConverter(_universe);
             var result = locationConverter.CreateLocationByIndex(rowN, colN, location);
             var expected = new Location(ExpectedRow, ExpectedCol);
-            Assert.True(_comparer.Equals(result, expected));
+            Assert.True(expected.IsEqual(result));
         }
     }
 }

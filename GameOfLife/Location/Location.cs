@@ -11,5 +11,13 @@ namespace GameOfLife
             Row = row;
             Column = column;
         }
+
+        public bool IsEqual(Location location)
+        {
+            if (location == null)
+                return false;
+
+            return (this.Column == location.Column && this.Row == location.Row);
+        }
     }
 }

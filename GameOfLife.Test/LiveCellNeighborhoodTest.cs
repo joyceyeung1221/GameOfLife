@@ -12,7 +12,6 @@ namespace GameOfLife.Test
         private Location topLocation = new Location(1, 2);
         private Location topRightLocation = new Location(1, 3);
         private Location distanceLocation = new Location(4, 4);
-        private LocationComparer _comparer = new LocationComparer();
         public LiveCellNeightbourhoodTest()
         {
         }
@@ -33,9 +32,9 @@ namespace GameOfLife.Test
             var neighborhood = new LiveCellNeighbourhood(centerPoint, nh);
             neighborhood.FindNeighbours(locations);
 
-            Assert.True(_comparer.Contains(topLeftLocation, neighborhood.LiveCellNeighbours));
-            Assert.True(_comparer.Contains(topLocation, neighborhood.LiveCellNeighbours));
-            Assert.False(_comparer.Contains(distanceLocation, neighborhood.LiveCellNeighbours));
+            Assert.True(neighborhood.LiveCellNeighbours.IsContained(topLeftLocation));
+            Assert.True(neighborhood.LiveCellNeighbours.IsContained(topLocation));
+            Assert.False(neighborhood.LiveCellNeighbours.IsContained(distanceLocation));
         }
 
         [Fact]
