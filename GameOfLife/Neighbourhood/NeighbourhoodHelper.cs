@@ -7,12 +7,10 @@ namespace GameOfLife
     public class NeighbourhoodHelper
     {
         private LocationConverter _locationConverter;
-        private LocationComparer _comparer;
 
         public NeighbourhoodHelper(LocationConverter locationConverter)
         {
             _locationConverter = locationConverter;
-            _comparer = new LocationComparer();
         }
 
         public Location[,] FormNeighbourhoodBoundaries()
@@ -52,11 +50,11 @@ namespace GameOfLife
         public List<Location> FindLiveCellNeighbours(Location[,] neighbourhood, List<Location> livingCellCoordinates)
         {
             var matchedCoorindates = new List<Location>();
-            foreach (Location coordinate in neighbourhood)
+            foreach (Location location in neighbourhood)
             {
-                if (_comparer.Contains(coordinate, livingCellCoordinates))
+                if (livingCellCoordinates.IsContained(location))
                 {
-                    matchedCoorindates.Add(coordinate);
+                    matchedCoorindates.Add(location);
                 }
             }
             return matchedCoorindates;

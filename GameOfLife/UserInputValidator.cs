@@ -43,7 +43,6 @@ namespace GameOfLife
                 default:
                     return "";
             }
-
         }
 
         public string HasLocationError(int[] locationDetails, Universe universe)
@@ -59,7 +58,6 @@ namespace GameOfLife
                 default:
                     return "";
             }
-
         }
 
         private int ConvertToNumber(string userInput)

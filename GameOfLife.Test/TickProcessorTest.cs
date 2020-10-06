@@ -10,7 +10,6 @@ namespace GameOfLife.Test
         private Location topLocation = new Location(1, 2);
         private Location topRightLocation = new Location(1, 3);
         private Location distanceLocation = new Location(4, 4);
-        private LocationComparer _comparer = new LocationComparer();
         public TickProcessorTest()
         {
         }
