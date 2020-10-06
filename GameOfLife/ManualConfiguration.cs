@@ -35,7 +35,7 @@ namespace GameOfLife
                 errorMessage = "";
                 _io.Output(message);
                 userInput = _io.Input();
-                errorMessage = _uiValidator.HasQuantityInputerror(userInput);
+                errorMessage = _uiValidator.HasQuantityInputError(userInput);
                 CanPrintErrorMessage(errorMessage);
             } while (errorMessage != "");
 
@@ -75,7 +75,7 @@ namespace GameOfLife
 
         }
 
-        public int[] ConvertToLocation(string userInput)
+        private int[] ConvertToLocation(string userInput)
         {
             if (userInput == "q")
             {
