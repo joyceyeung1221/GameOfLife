@@ -45,8 +45,8 @@ namespace GameOfLife
                 stringToPrint = GetSymbolInRow(universeWithLiveCells, stringToPrint, i);
                 stringToPrint += "\n";
             }
-            return stringToPrint;
 
+            return stringToPrint;
         }
 
         private string GetSymbolInRow(char[,] universeWithLiveCells, string stringToPrint, int i)
@@ -62,8 +62,8 @@ namespace GameOfLife
         private char GetSymbol(char locationContent)
         {
             return locationContent == 0 ? ' ' : _cell;
-
         }
+
         private char[,] AssignLiveCell(char[,] universeIn2d, List<Location> liveCellLocations)
         {
             foreach(Location location in liveCellLocations)
@@ -72,6 +72,7 @@ namespace GameOfLife
                 var columnIndex = location.Column - 1;
                 universeIn2d[rowIndex, columnIndex] = _cell;
             }
+
             return universeIn2d;
         }
 

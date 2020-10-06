@@ -23,6 +23,7 @@ namespace GameOfLife
         {
             var row = GetQuantity("Please enter the number of rows your universe has: ");
             var column = GetQuantity("Please enter the number of columns your universe has: ");
+
             return new Universe(row, column);
         }
 
@@ -37,6 +38,7 @@ namespace GameOfLife
                 userInput = _io.Input();
                 errorMessage = _uiValidator.HasQuantityInputError(userInput);
                 CanPrintErrorMessage(errorMessage);
+
             } while (errorMessage != "");
 
             return Int32.Parse(userInput);
@@ -66,10 +68,10 @@ namespace GameOfLife
                 exitError = _uiValidator.HasExitError(location, locationDetailsList);
                 errorMessage += exitError;
                 CanPrintErrorMessage(errorMessage);
+
             } while (!IsGameEnded(location, exitError));
 
             return locationDetailsList;
-
         }
 
         private static bool IsGameEnded(int[] location, string exitError)
@@ -85,8 +87,8 @@ namespace GameOfLife
             }
 
             var splitInput = userInput.Split(',');
-            return new int[] { Int32.Parse(splitInput[0]), Int32.Parse(splitInput[1]) };
 
+            return new int[] { Int32.Parse(splitInput[0]), Int32.Parse(splitInput[1]) };
         }
 
         private List<int[]> CanAdd(int[] locationDetails, List<int[]> locationDetailsList)
@@ -95,6 +97,7 @@ namespace GameOfLife
             {
                 locationDetailsList.Add(locationDetails);
             }
+
             return locationDetailsList;
         }
 
@@ -110,7 +113,9 @@ namespace GameOfLife
                 userInput = _io.Input();
                 errorMessage = _uiValidator.HasLocationInputError(userInput);
                 CanPrintErrorMessage(errorMessage);
+
             } while (errorMessage != "");
+
             return userInput;
         }
 
@@ -121,12 +126,14 @@ namespace GameOfLife
             {
                 locationList.Add(new Location(location[0], location[1]));
             }
+
             return locationList;
         }
 
         private List<Location> RemoveDuplicateCoordinate(List<Location> locations)
         {
             var filterList = locations.GroupBy(n => new { n.Column, n.Row }).Select(g => g.First()).ToList();
+
             return filterList;
         }
 
