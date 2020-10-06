@@ -53,26 +53,28 @@ namespace GameOfLife
         private List<int[]> GetInitalStateLocationDetails(Universe universe)
         {
             string errorMessage;
-            bool isEnded = false;
+            string exitError = "";
+            int[] location = new int[0];
             var locationDetailsList = new List<int[]>();
             do
             {
                 errorMessage = "";
                 var userInput = GetUserInputOnLiveCellLocation();
-                var location = ConvertToLocation(userInput);
+                location = ConvertToLocation(userInput);
                 errorMessage = _uiValidator.HasLocationError(location, universe);
                 CanAdd(location, locationDetailsList);
-                var exitError = _uiValidator.HasExitError(location, locationDetailsList);
-                if (exitError == "" && location.Length == 0)
-                {
-                    isEnded = true;
-                }
+                exitError = _uiValidator.HasExitError(location, locationDetailsList);
                 errorMessage += exitError;
                 CanPrintErrorMessage(errorMessage);
-            } while (!isEnded);
+            } while (!IsGameEnded(location, exitError));
 
             return locationDetailsList;
 
+        }
+
+        private static bool IsGameEnded(int[] location, string exitError)
+        {
+            return exitError == "" && location.Length == 0;
         }
 
         private int[] ConvertToLocation(string userInput)
