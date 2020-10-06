@@ -13,7 +13,7 @@ namespace GameOfLife
         {
         }
 
-        public string HasQuantityInputerror(string userInput)
+        public string HasQuantityInputError(string userInput)
         {
             switch (userInput)
             {

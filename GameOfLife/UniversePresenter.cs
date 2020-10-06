@@ -6,12 +6,11 @@ namespace GameOfLife
 {
     public class ConsolePresenter
     {
+        private const char _cell = 'o';
         private InputOutput _io;
-        private char _cell;
         public ConsolePresenter(InputOutput io)
         {
             _io = io;
-            _cell = 'o';
         }
 
         public void EndGame()

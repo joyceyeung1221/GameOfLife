@@ -20,7 +20,7 @@ namespace GameOfLife.Test
         {
             _universe = new Universe(5, 5);
             _mockio = new Mock<InputOutput>();
-            _universePresenter = new ConsolePresenter(_mockio.Object, _universe);
+            _universePresenter = new ConsolePresenter(_mockio.Object);
         }
 
         [Fact]
